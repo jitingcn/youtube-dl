@@ -1742,6 +1742,8 @@ class YoutubeIE(YoutubeBaseInfoExtractor):
                         pl_response = self._parse_json(pl_response, video_id, fatal=False)
                         if isinstance(pl_response, dict):
                             player_response = pl_response
+                if 'isLive' in player_response['videoDetails']:
+                    is_live = player_response['videoDetails']
             if not video_info or self._downloader.params.get('youtube_include_dash_manifest', True):
                 add_dash_mpd_pr(player_response)
                 # We also try looking in get_video_info since it may contain different dashmpd
